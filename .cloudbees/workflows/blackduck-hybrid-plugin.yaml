@@ -1,34 +1,30 @@
 name: blackduck-hybrid-plugin
 kind: workflow
 apiVersion: automation.cloudbees.io/v1alpha1
-
 on:
   push:
     branches:
       - blackduck-hybrid-plugin-test
-
+  workflow_dispatch:
 permissions:
   scm-token-own: read
   scm-token-org: read
   id-token: write
-
 jobs:
   blackduck-hybrid-scan:
-    steps:        
+    steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
         with:
           repository: blackduckscan-Go-testing
           ref: main
           token: ${{ secrets.GIT_PAT }}
-
       - name: black duck hybrid plugin scan
-        #uses: cloudbees-io/blackduck-sca-scan-dependency@v2.0.1
         uses: cloudbees-io/blackduck-sca-scan-dependency-private@CBP-9856
         with:
-          server-url: 'https://blackduck.saas-qa.beescloud.com'
+          server-url: https://blackduck.saas-qa.beescloud.com
           api-token: ${{ secrets.BD_API_TOKEN }}
-          project-name: 'template-security-plugin'
-          project-version: '0.0.1'
-          detect-cli-params: '--logging.level.detect=DEBUG --blackduck.offline.mode=false'
+          project-name: template-security-plugin
+          project-version: 0.0.1
+          detect-cli-params: --logging.level.detect=DEBUG --blackduck.offline.mode=false
           ref: main
