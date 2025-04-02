@@ -15,9 +15,6 @@ jobs:
     steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
-        with:
-          repository: blackduckscan-Go-testing
-          ref: main
         #   token: ${{ secrets.GIT_PAT }}
       - name: black duck hybrid plugin scan
         uses: cloudbees-io/blackduck-sca-scan-dependency@v2.0.1
