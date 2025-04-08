@@ -6,6 +6,8 @@ on:
     branches:
       - blackduck-hybrid-plugin-test
   workflow_dispatch:
+  schedule:
+    - cron: 0 * * * 1-5
 permissions:
   scm-token-own: read
   scm-token-org: read
@@ -15,7 +17,6 @@ jobs:
     steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
-        #   token: ${{ secrets.GIT_PAT }}
       - name: black duck hybrid plugin scan
         uses: cloudbees-io/blackduck-sca-scan-dependency@v2.0.1
         with:
