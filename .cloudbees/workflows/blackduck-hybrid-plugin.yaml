@@ -6,8 +6,6 @@ on:
     branches:
       - blackduck-hybrid-plugin-test
   workflow_dispatch:
-  schedule:
-    - cron: 0 * * * 1-5
 permissions:
   scm-token-own: read
   scm-token-org: read
