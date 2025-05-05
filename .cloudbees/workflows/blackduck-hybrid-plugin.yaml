@@ -15,11 +15,11 @@ jobs:
     steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
-      - name: ping black duck server
-        uses: docker://golang:1.20-alpine
-        shell: sh
-        run: | # These echo commands will mask the secrets since they are already masked in the action of the same job
-         ping 'https://blackduck.saas-qa.beescloud.com'
+    #   - name: ping black duck server
+    #     uses: docker://golang:1.20-alpine
+    #     shell: sh
+    #     run: | # These echo commands will mask the secrets since they are already masked in the action of the same job
+    #      ping 'https://blackduck.saas-qa.beescloud.com'
 
       - name: black duck hybrid plugin scan
         uses: cloudbees-io/blackduck-sca-scan-dependency@v2.0.1
