@@ -1,48 +1,41 @@
 name: blackduck-hybrid-plugin
 kind: workflow
 apiVersion: automation.cloudbees.io/v1alpha1
-
 on:
   push:
     branches:
       - blackduck-hybrid-plugin-test
-
+  workflow_dispatch:
 permissions:
   scm-token-own: read
   scm-token-org: read
   id-token: write
-
 jobs:
   test-connection:
-    steps:    
+    steps:
       - name: test-connection
         uses: docker://ensignprojects/ubuntu-curl:latest
         shell: sh
-        run: | 
-         curl blackduck.saas-qa.beescloud.com
-
+        run: |
+          curl blackduck.saas-qa.beescloud.com
   blackduck-hybrid-scan:
-    steps:        
+    steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
         with:
           repository: calculi-corp/template-go-testing
           ref: main
           token: ${{ secrets.GIT_PAT }}
-
       - name: test-connection
         uses: docker://golang:1.20-alpine
         shell: sh
-        run: | 
-         curl https://blackduck.saas-qa.beescloud.com
-
+        run: |
+          curl https://blackduck.saas-qa.beescloud.com
       - name: black duck hybrid plugin scan
-        #uses: cloudbees-io/blackduck-sca-scan-dependency@v2.0.1
-        #uses: cloudbees-io/blackduck-sca-scan-dependency-private@CBP-9856
         uses: cloudbees-io/blackduck-sca-scan-dependency-private@v1
         with:
-          server-url: 'https://blackduck.saas-qa.beescloud.com'
+          server-url: https://blackduck.saas-qa.beescloud.com
           api-token: ${{ secrets.BD_API_TOKEN }}
           project-name: blackduckscan-Go-testing
-          project-version: '0.0.1'
+          project-version: 0.0.1
           ref: main
