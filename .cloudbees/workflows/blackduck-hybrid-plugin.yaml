@@ -11,31 +11,22 @@ permissions:
   scm-token-org: read
   id-token: write
 jobs:
-  test-connection:
-    steps:
-      - name: test-connection
-        uses: docker://ensignprojects/ubuntu-curl:latest
-        shell: sh
-        run: |
-          curl blackduck.saas-qa.beescloud.com
   blackduck-hybrid-scan:
     steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
-        with:
-          repository: calculi-corp/template-go-testing
-          ref: main
-          token: ${{ secrets.GIT_PAT }}
-      - name: test-connection
-        uses: docker://golang:1.20-alpine
-        shell: sh
-        run: |
-          curl https://blackduck.saas-qa.beescloud.com
+    #   - name: ping black duck server
+    #     uses: docker://golang:1.20-alpine
+    #     shell: sh
+    #     run: | # These echo commands will mask the secrets since they are already masked in the action of the same job
+    #      ping blackduck.saas-qa.beescloud.com 
       - name: black duck hybrid plugin scan
-        uses: cloudbees-io/blackduck-sca-scan-dependency-private@v1
+        uses: cloudbees-io/blackduck-sca-scan-dependency@apr
         with:
           server-url: https://blackduck.saas-qa.beescloud.com
           api-token: ${{ secrets.BD_API_TOKEN }}
           project-name: blackduckscan-Go-testing
           project-version: 0.0.1
+        #   detect-cli-params: --logging.level.detect=DEBUG --blackduck.offline.mode=false
+          detect-cli-params: --detect.detector.required.accuracy=HIGH
           ref: main
