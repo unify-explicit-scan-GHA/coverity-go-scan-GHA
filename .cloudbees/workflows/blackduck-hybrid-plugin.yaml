@@ -11,7 +11,7 @@ permissions:
   scm-token-org: read
   id-token: write
 jobs:
-  blackduck-hybrid-scan-codescan:
+  blackduck-hybrid-scan:
     steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
@@ -25,17 +25,4 @@ jobs:
         #   detect-cli-params: --logging.level.detect=DEBUG --blackduck.offline.mode=false
           detect-cli-params: --detect.detector.required.accuracy=HIGH
           ref: main
-  blackduck-hybrid-scan-mixedcodebase:
-    steps:
-      - name: checkout Source Code
-        uses: cloudbees-io/checkout@v1
-      - name: black duck hybrid plugin scan
-        uses: cloudbees-io/blackduck-sca-scan-dependency@apr
-        with:
-          server-url: https://blackduck.saas-qa.beescloud.com
-          api-token: ${{ secrets.BD_API_TOKEN }}
-          project-name: blackduckscan-python-librariesdependencies
-          project-version: 0.0.1
-        #   detect-cli-params: --logging.level.detect=DEBUG --blackduck.offline.mode=false
-          detect-cli-params: --detect.detector.required.accuracy=HIGH
-          ref: main
+  
