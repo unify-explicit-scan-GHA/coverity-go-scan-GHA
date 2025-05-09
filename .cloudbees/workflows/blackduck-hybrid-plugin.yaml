@@ -22,7 +22,7 @@ jobs:
           api-token: ${{ secrets.BD_API_TOKEN }}
           project-name: blackduckscan-Go-testing
           project-version: 0.0.1
-        #   detect-cli-params: --logging.level.detect=DEBUG --blackduck.offline.mode=false
-          detect-cli-params: --detect.detector.required.accuracy=HIGH
+          detect-cli-params: --logging.level.detect=DEBUG --blackduck.offline.mode=false
+        #   detect-cli-params: --detect.detector.required.accuracy=HIGH
           ref: main
   
