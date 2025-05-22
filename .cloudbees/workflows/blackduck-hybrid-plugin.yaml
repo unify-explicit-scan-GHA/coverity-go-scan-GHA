@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v1
+        with:
+            repository: cbp-automation-ninja/blackduckscan-Go-testing
       - name: black duck hybrid plugin scan
         uses: cloudbees-io/blackduck-sca-scan-dependency@apr
         with:
