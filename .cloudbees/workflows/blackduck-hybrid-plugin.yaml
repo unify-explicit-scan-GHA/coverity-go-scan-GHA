@@ -21,7 +21,7 @@ jobs:
         with:
             repository: cbp-automation-ninja/blackduckscan-Go-testing
       - name: black duck hybrid plugin scan
-        uses: cloudbees-io/blackduck-sca-scan-dependency@v2.0.4
+        uses: cloudbees-io/blackduck-sca-scan-dependency@v2
         with:
           server-url: https://blackduck.saas-qa.beescloud.com
           api-token: ${{ secrets.BD_API_TOKEN }}
