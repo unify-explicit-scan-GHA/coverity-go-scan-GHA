@@ -23,6 +23,9 @@ jobs:
       - name: Push binary
         run: echo "Pushing Binary to ECR..."
 
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
       - name: Scan with Coverity on Polaris
         uses: cloudbees-io-gha/coverity-scan-publish@v2
         with: 
